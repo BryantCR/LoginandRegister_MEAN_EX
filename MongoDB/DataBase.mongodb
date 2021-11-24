@@ -1,27 +1,8 @@
 
-use('users_db');
+use('login_registrations_db2');
 
 db.createCollection('users')
 //When you run the proyect it creates the fields
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // // Insert a few documents into the sales collection.
 // db.sales.insertMany([

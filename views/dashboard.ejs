@@ -1,19 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Welcome <%= user.firstname %> <%= user.lastname %></h1>
-    
-    <form action="/logout" method="POST">
-        <button type="submit">
-            Logout
-        </button>
-    </form>
-    <a href="/logout">Logout</a>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home</title>
+    </head>
+    <body>
+        <header>
+            <h2>
+                This is just a generic Home
+            </h2>
+            <h1>
+                Welcome back <%= user.firstname %> <%= user.lastname %> to the users server
+            </h1>
+        </header>
+        <main>
+            <p>
+                holding the space...
+            </p>
+            <form action="/logout" method="POST">
+                <button type="submit">
+                    Logout
+                </button>
+            </form>
+        </main>
+    </body>
 </html>

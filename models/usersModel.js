@@ -1,5 +1,6 @@
 //* REQUIRES
 const mongoose = require('mongoose');
+const AutoIncrement = require('mongoose-sequence')(mongoose); // Auto-Increment
 
 
 //*----------------CONSTRUCTOR-------------------------------------------------------------------------------------
@@ -32,13 +33,14 @@ const UserSchema = new mongoose.Schema({
 
     password : {
         type : String,
-        required : true
+        required : true,
+        minlength : 6,
     },
 
 
 });
 //*----------------CONSTRUCTOR END----------------------------------------------------------------------------------
-
+UserSchema.plugin(AutoIncrement, {inc_field: 'users_id'});
 //*CONNECT COLLECTION
 const User = mongoose.model( 'users', UserSchema );
                           //Col. name, constructor

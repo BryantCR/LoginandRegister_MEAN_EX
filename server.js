@@ -1,3 +1,17 @@
+/******************** DEPENDENCIES
+npm init -y
+npm install express
+npm install ejs
+npm install mongoose
+npm install bcrypt
+npm install express-session
+npm install express-flash
+npm install mongoose-sequence
+npm install --save mongoose-sequence
+//sudo lsof -iTCP -sTCP:LISTEN | grep node //Ver los procesos de node abiertos
+//eliminar procesos = p.kill
+*/
+
 //* REQUIRES
 const ejs = require('ejs');
 const express = require('express');
@@ -9,7 +23,7 @@ const {UserModel} = require('./models/usersModel');
 const { isValid } = require('ipaddr.js');
 
 //* CONNECT FOR MONGO
-mongoose.connect('mongodb://127.0.0.1/login_registrations_db1', {useNewUrlParser: true});
+mongoose.connect('mongodb://localhost/login_registrations_db2', {useNewUrlParser: true}); // LINK WITH THE DB
 
 //* APP
 const app = express();
@@ -44,11 +58,15 @@ app.get( '/dashboard', function( request, response ){
         lastname : request.session.lastname,
         email : request.session.email
     };
-
     response.render( 'dashboard', {user: userinfo} );
     }
     
 });
+
+function validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
 
 //?--------------(Register as User)-----------------------------------
 app.post( '/register', function( request, response ){
@@ -62,12 +80,10 @@ app.post( '/register', function( request, response ){
 //--------------------------------------------------------Validations-----------------------
     let isValid = true
 
-    function validateEmail(email) {
-        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(email).toLowerCase());
+    if(firstname === '' || lastname === '' || email === '' || password === '' ){
+        request.flash('registerBlank', "There is an empty space");
+        isValid = false;
     }
-    
-
     if(!validateEmail(email)){
         request.flash('registerEmail3', "Please write a valid email");
         isValid = false;
@@ -84,12 +100,8 @@ app.post( '/register', function( request, response ){
         request.flash('registerEmail', "The email must be at least than 3 characters");
         isValid = false;
     }
-    if(password.length < 5){
-        request.flash('registerPass', "The password must be at least than 5 characters");
-        isValid = false;
-    }
-    if(firstname === '' || lastname === '' || email === '' || password === '' ){
-        request.flash('registerBlank', "There is an empty space somewhere");
+    if(password.length < 6){
+        request.flash('registerPass', "The password must be at least than 6 characters");
         isValid = false;
     }
     if(birthday == "Invalid Date"){
@@ -109,10 +121,17 @@ app.post( '/register', function( request, response ){
         bcrypt.hash(password, 10)
         .then(encryptedPassword =>{
             const newUser = {
-                firstname,lastname,email,birthday,
+                firstname,
+                lastname,
+                email,
+                birthday,
                 password : encryptedPassword
             };
-            
+            console.log("This user wants to be added: " + newUser.firstname );
+                console.log("This user wants to be added: " + newUser.lastname );
+                console.log("This user wants to be added: " + newUser.email );
+                console.log("This user wants to be added: " + newUser.password );
+                console.log("This user wants to be added: " + newUser.birthday );
             UserModel
                 .createUser( newUser )
                 .then( result => {
@@ -141,15 +160,27 @@ app.post( '/register', function( request, response ){
 //?--------------(Login)-------------------------------------------------------
 app.post( '/login', function( request, response ){
     let email = request.body.email;
+    console.log( "Result: ", email );
     let password = request.body.user_password;
 
     let isValid = true
 
     if(email === '' || password === ''){
-        request.flash('loginBlank', "There is an empty space somewhere");
+        request.flash('loginBlank', "There is an empty space");
         isValid = false;
     }
-
+    if(email === '' ){
+        request.flash('emailBlank', "There is an empty space");
+        isValid = false;
+    }
+    if(password === '' || password.length < 6){
+        request.flash('passwordBlank', "The password must be at least than 6 characters");
+        isValid = false;
+    }
+    if(!validateEmail(email)){
+        request.flash( 'emailBlank', 'The email field must have valid characters' );
+        isValid = false;
+    }
 
     if(isValid){
     UserModel
@@ -185,12 +216,6 @@ app.post( '/login', function( request, response ){
     }
 });
 
-
-//?--------------()--------------------
-//!----UPDATE------------------------------------------------------------------------
-//?--------------()--------------------
-
-//!----DELETE------------------------------------------------------------------------
 //?--------------(LogOut)--------------------
 app.post( '/logout', function( request, response ){
     request.session.destroy();
@@ -199,10 +224,6 @@ app.post( '/logout', function( request, response ){
 
 //*--------------ENDPOINTS-----------------------------------------------------------------------------------------------------------------------
 
-//* PORT CONNECTION
 app.listen( 8080, function(){
-    console.log( "The login and register is running in port 8080." );
+    console.log( "The server is running in port 8080." );
 });
-
-//* SOCKETS
-//TODO: there are no sockets for this proyect
