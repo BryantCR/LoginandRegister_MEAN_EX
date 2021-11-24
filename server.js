@@ -76,6 +76,16 @@ app.post( '/register', function( request, response ){
 //--------------------------------------------------------Validations-----------------------
     let isValid = true
 
+    function validateEmail(email) {
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    }
+    
+
+    if(!validateEmail(email)){
+        request.flash('registerEmail3', "Please write a valid email");
+        isValid = false;
+    }
     if(firstname.length < 3){
         request.flash('registerFname', "The firstname must be at least than 3 characters");
         isValid = false;

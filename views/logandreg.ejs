@@ -57,6 +57,13 @@
                         </p>
                     <% } %>
                 </div>
+                <div class="error">
+                    <% if( messages.registerEmail3 ){ %>
+                        <p class="errortxt">
+                            <%= messages.registerEmail3 %>
+                        </p>
+                    <% } %>
+                </div>
 
                 <label style="display: block; padding-top: 10px;">Birthday:</label>
                 <input type="date" name="birthday" placeholder="Insert your email"/>
