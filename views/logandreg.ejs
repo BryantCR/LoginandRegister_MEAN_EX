@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Belt Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <div style="display: flex; flex-direction: row; justify-content: space-around;">
+        <div class="bg-dark text-light mx-2 p-4 mt-3" style="border-radius: 10px; width: 250px;">
+            <h1 class="text-danger">Register</h1>
+            
+            <div class="error">
+                <% if( messages.registerBlank ){ %>
+                    <p class="errortxt">
+                        <%= messages.registerBlank %>
+                    </p>
+                <% } %>
+            </div>
+
+            <form action="/register" method="POST">
+                <label style="display: block; padding-top: 10px;">First Name:</label>
+                <input type="text" name="first_name" placeholder="Insert your First Name"/>
+                <div class="error">
+                    <% if( messages.registerFname ){ %>
+                        <p class="errortxt">
+                            <%= messages.registerFname %>
+                        </p>
+                    <% } %>
+                </div>
+
+                <label style="display: block; padding-top: 10px;">Last Name:</label>
+                <input type="text" name="last_name" placeholder="Insert your Last Name"/>
+                <div class="error">
+                    <% if( messages.registerLname ){ %>
+                        <p class="errortxt">
+                            <%= messages.registerLname %>
+                        </p>
+                    <% } %>
+                </div>
+
+                <label style="display: block; padding-top: 10px;">Email:</label>
+                <input type="text" name="email" placeholder="Insert your email"/>
+                <div class="error">
+                    <% if( messages.registerEmail ){ %>
+                        <p class="errortxt">
+                            <%= messages.registerEmail %>
+                        </p>
+                    <% } %>
+                </div>
+                <div class="error">
+                    <% if( messages.registerEmail2 ){ %>
+                        <p class="errortxt">
+                            <%= messages.registerEmail2 %>
+                        </p>
+                    <% } %>
+                </div>
+
+                <label style="display: block; padding-top: 10px;">Birthday:</label>
+                <input type="date" name="birthday" placeholder="Insert your email"/>
+                <div class="error">
+                    <% if( messages.registerDate ){ %>
+                        <p class="errortxt">
+                            <%= messages.registerDate %>
+                        </p>
+                    <% } %>
+                </div>
+
+                <label style="display: block; padding-top: 10px;">Password:</label>
+                <input type="password" name="password" placeholder="Insert your password"/>
+                <div class="error">
+                    <% if( messages.registerPass ){ %>
+                        <p class="errortxt">
+                            <%= messages.registerPass %>
+                        </p>
+                    <% } %>
+                </div>
+
+                <label style="display: block; padding-top: 10px;">Confirm Password:</label>
+                <input type="password" name="passwordReview" placeholder="Insert your password"/>
+                <div class="error">
+                    <% if( messages.registerPass2 ){ %>
+                        <p class="errortxt">
+                            <%= messages.registerPass2 %>
+                        </p>
+                    <% } %>
+                </div>
+
+                <button type="submit" class="btn btn-danger mt-5" style="display: block;">Register</button>
+            </form>
+        </div>
+        <div>
+            <div class="bg-dark text-light mx-2 p-4 mt-3" style="border-radius: 10px; width: 250px;">
+                <h1 class="text-primary">Login</h1>
+                
+                
+                <div class="error">
+                    <% if( messages.loginBlank ){ %>
+                        <p class="errortxt">
+                            <%= messages.loginBlank %>
+                        </p>
+                    <% } %>
+                </div>
+                
+
+                <form action="/login" method="POST">
+    
+                    <label style="display: block; padding-top: 10px;">Email:</label>
+                    <input type="text" name="email" placeholder="Insert your email"/>
+                    <div class="error">
+                        <% if( messages.login1 ){ %>
+                            <p class="errortxt">
+                                <%= messages.login1 %>
+                            </p>
+                        <% } %>
+                    </div>
+
+                    <label style="display: block; padding-top: 10px;">Password:</label>
+                    <input type="password" name="user_password" placeholder="Insert your password"/>
+                    <div class="error">
+                        <% if( messages.login2 ){ %>
+                            <p class="errortxt">
+                                <%= messages.login2 %>
+                            </p>
+                        <% } %>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mt-5" style="display: block;">Login</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
