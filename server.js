@@ -211,15 +211,12 @@ app.post( '/logout', function( request, response ){
     response.redirect( '/' ); 
 });
 
-
 //*--------------ENDPOINTS-----------------------------------------------------------------------------------------------------------------------
-
 
 //* PORT CONNECTION
 app.listen( 8080, function(){
     console.log( "The login and register is running in port 8080." );
 });
-
 
 //* SOCKETS
 //TODO: there are no sockets for this proyect
