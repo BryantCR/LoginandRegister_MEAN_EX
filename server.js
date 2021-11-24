@@ -9,7 +9,7 @@ const {UserModel} = require('./models/usersModel');
 const { isValid } = require('ipaddr.js');
 
 //* CONNECT FOR MONGO
-mongoose.connect('mongodb://127.0.0.1/users_db', {useNewUrlParser: true});
+mongoose.connect('mongodb://127.0.0.1/login_registrations_db1', {useNewUrlParser: true});
 
 //* APP
 const app = express();
@@ -28,10 +28,6 @@ app.use(session({
     // You can select the time for your session 
 }));
 
-
-//*--------------ENDPOINTS-----------------------------------------------------------------------------------------------------------------------
-
-//!----LOADS------------------------------------------------------------------------
 //?--------------(Load login and register page)--------------
 app.get( '/', function( request, response ){
     response.render( 'logandreg' );
@@ -53,16 +49,6 @@ app.get( '/dashboard', function( request, response ){
     }
     
 });
-
-
-//!----GET------------------------------------------------------------------------
-
-//?--------------()--------------------
-
-
-//?--------------()--------------------
-
-//!----POST------------------------------------------------------------------------
 
 //?--------------(Register as User)-----------------------------------
 app.post( '/register', function( request, response ){
