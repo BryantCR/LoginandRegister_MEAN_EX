@@ -8,7 +8,7 @@
     "start": "nodemon server.js"
   },
   "keywords": [],
-  "author": "Johandro Gonzalez A",
+  "author": "Bryan Cascante Vargas",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
