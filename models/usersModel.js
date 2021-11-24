@@ -41,13 +41,9 @@ const UserSchema = new mongoose.Schema({
 });
 //*----------------CONSTRUCTOR END----------------------------------------------------------------------------------
 UserSchema.plugin(AutoIncrement, {inc_field: 'users_id'});
-//*CONNECT COLLECTION
+
 const User = mongoose.model( 'users', UserSchema );
-                          //Col. name, constructor
 
-//*----------------QUERYS------------------------------------------------------------------------------------------
-
-//?----------------(QUERYS FOR USERS)----------------------------
 const UserModel = {
 
     createUser : function (newUser) {
@@ -57,10 +53,5 @@ const UserModel = {
         return User.findOne({ email });
     },
     //TODO INSERT MORE QUERYS
-
 }
-
-//*----------------QUERYS END--------------------------------------------------------------------------------------
-
-//* EXPORT MODEL (QUERY OBJECTS)
 module.exports = {UserModel};
